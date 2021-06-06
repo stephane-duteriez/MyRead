@@ -9,8 +9,8 @@ function Book(props) {
         <div className="book-cover" style={{ width: props.image.width, height: props.image.height, backgroundImage: props.image.url}}></div>
         <BookShelfChanger active={props.shelf}/>
       </div>
-      <div className="book-title">props.tile</div>
-      <div className="book-authors">porps.author</div>
+      <div className="book-title">{props.tile}</div>
+      <div className="book-authors">{props.author}</div>
     </div>
   )
 };
