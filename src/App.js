@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import { BrowserRouter as Router, Link, Route} from 'react-router-dom';
+
 // import * as BooksAPI from './BooksAPI'
 import './App.css';
 import BookShelf from './BookShelf';
@@ -88,18 +90,18 @@ const initBooks = [
 function BooksApp() {
 
   const [books, setBooks] = useState(initBooks);
-  const showSearchPage = false;
 
   function modifyBook(newBook) {
     setBooks([...books.filter((book)=>(book.id !== newBook.id)), newBook]);
   };
 
   return (
+    <Router>
     <div className="app">
-      {showSearchPage ? (
+      <Route path="/search">
         <div className="search-books">
           <div className="search-books-bar">
-            <a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
+            <Link to="/" className="close-search">Close</Link>
             <div className="search-books-input-wrapper">
               {/*
                 NOTES: The search from BooksAPI is limited to a particular set of search terms.
@@ -110,15 +112,15 @@ function BooksApp() {
                 you don't find a specific author or title. Every search is limited by search terms.
               */}
               <input type="text" placeholder="Search by title or author"/>
-
             </div>
           </div>
           <div className="search-books-results">
             <ol className="books-grid"></ol>
           </div>
         </div>
-      ) : (
-        <div className="list-books">
+      </Route>
+      <Route exact path="/">
+       <div className="list-books">
           <div className="list-books-title">
             <h1>MyReads</h1>
           </div>
@@ -132,11 +134,13 @@ function BooksApp() {
             ))}
           </div>
           <div className="open-search">
-            <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
+            <Link to="/search">Add a book</Link>
           </div>
         </div>
-      )}
+      </Route>
     </div>
+    </Router>
+    
   )
 }
 
