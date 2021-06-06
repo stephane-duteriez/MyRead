@@ -7,7 +7,9 @@ function BookShelf(props) {
         <div className="bookshelf">
             <h2 className="bookshelf-title">{props.titleShelf}</h2>
             <div className="bookshelf-books">
-                <BooksList books={props.books} />
+                <BooksList
+                  books={props.books}
+                  onChangeShelf={props.onChangeShelf} />
             </div>
         </div>
     )
@@ -15,7 +17,8 @@ function BookShelf(props) {
 
 BookShelf.propTypes = {
     books : PropTypes.array.isRequired,
-    titleShelf : PropTypes.string.isRequired
+    titleShelf : PropTypes.string.isRequired,
+    onChangeShelf : PropTypes.func.isRequired
 }
 
 export default BookShelf;

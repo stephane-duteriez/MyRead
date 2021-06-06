@@ -7,7 +7,7 @@ function Book(props) {
     <div className="book">
       <div className="book-top">
         <div className="book-cover" style={{ width: props.image.width, height: props.image.height, backgroundImage: props.image.url}}></div>
-        <BookShelfChanger active={props.shelf}/>
+        <BookShelfChanger active={props.shelf} onChangeShelf={props.onChangeShelf}/>
       </div>
       <div className="book-title">{props.tile}</div>
       <div className="book-authors">{props.author}</div>
@@ -18,8 +18,9 @@ function Book(props) {
 Book.propTypes = {
   title : PropTypes.string.isRequired,
   author : PropTypes.string.isRequired,
-  shelf : PropTypes.string,
-  image : PropTypes.object.isRequired
+  shelf : PropTypes.number,
+  image : PropTypes.object.isRequired,
+  onChangeShelf : PropTypes.func.isRequired
 };
 
 export default Book;

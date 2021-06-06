@@ -1,16 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 // import * as BooksAPI from './BooksAPI'
 import './App.css';
 import BookShelf from './BookShelf';
-
-const shelfs =  Object.freeze({
-  'currentlyReading' : 1,
-  'wantToRead' : 2,
-  'read' : 3
-});
+import {shelfs, labelShelfs} from './Constantes';
+import {v4 as uuidv4} from 'uuid';
 
 const initBooks = [
   {
+    id : uuidv4(),
     title : "To Kill a Mockingbird",
     autor : "Harper Lee",
     image : {
@@ -21,6 +18,7 @@ const initBooks = [
     shelf : shelfs.currentlyReading
   },
   {
+    id : uuidv4(),
     title : "Ender's Game",
     autor : "Orson Scott Card",
     image : {
@@ -31,6 +29,7 @@ const initBooks = [
     shelf : shelfs.currentlyReading
   },
   {
+    id : uuidv4(),
     title : "1776",
     autor : "David McCullough",
     image : {
@@ -41,6 +40,7 @@ const initBooks = [
     shelf : shelfs.wantToRead
   },
   {
+    id : uuidv4(),
     title : "Harry Potter and the Sorcerer's Stone",
     autor : "J.K. Rowling",
     image : {
@@ -51,6 +51,7 @@ const initBooks = [
     shelf : shelfs.wantToRead
   },
   {
+    id : uuidv4(),
     title : "The Hobbit",
     autor : "J.R.R. Tolkien",
     image : {
@@ -61,6 +62,7 @@ const initBooks = [
     shelf : shelfs.read
   },
   {
+    id : uuidv4(),
     title : "Oh, the Places You'll Go!",
     autor : "Seuss",
     image : {
@@ -71,6 +73,7 @@ const initBooks = [
     shelf : shelfs.read
   },
   {
+    id : uuidv4(),
     title : "The Adventures of Tom Sawyer",
     autor : "Mark Twain",
     image : {
@@ -82,60 +85,59 @@ const initBooks = [
   }
 ];
 
-class BooksApp extends React.Component {
-  state = {
-    books : initBooks,
-    /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
-    showSearchPage: false
-  }
+function BooksApp() {
 
-  render() {
-    return (
-      <div className="app">
-        {this.state.showSearchPage ? (
-          <div className="search-books">
-            <div className="search-books-bar">
-              <a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
-              <div className="search-books-input-wrapper">
-                {/*
-                  NOTES: The search from BooksAPI is limited to a particular set of search terms.
-                  You can find these search terms here:
-                  https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
+  const [books, setBooks] = useState(initBooks);
+  const showSearchPage = false;
 
-                  However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-                  you don't find a specific author or title. Every search is limited by search terms.
-                */}
-                <input type="text" placeholder="Search by title or author"/>
+  function modifyBook(newBook) {
+    setBooks([...books.filter((book)=>(book.id !== newBook.id)), newBook]);
+  };
 
-              </div>
-            </div>
-            <div className="search-books-results">
-              <ol className="books-grid"></ol>
+  return (
+    <div className="app">
+      {showSearchPage ? (
+        <div className="search-books">
+          <div className="search-books-bar">
+            <a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
+            <div className="search-books-input-wrapper">
+              {/*
+                NOTES: The search from BooksAPI is limited to a particular set of search terms.
+                You can find these search terms here:
+                https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
+
+                However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
+                you don't find a specific author or title. Every search is limited by search terms.
+              */}
+              <input type="text" placeholder="Search by title or author"/>
+
             </div>
           </div>
-        ) : (
-          <div className="list-books">
-            <div className="list-books-title">
-              <h1>MyReads</h1>
-            </div>
-            <div className="list-books-content">
-                <BookShelf books={this.state.books.filter((book)=>(book.shelf===shelfs.currentlyReading))} titleShelf='Currently Reading' />
-                <BookShelf books={this.state.books.filter((book)=>(book.shelf===shelfs.wantToRead))} titleShelf='Want To Read' />
-                <BookShelf books={this.state.books.filter((book)=>(book.shelf===shelfs.read))} titleShelf='Read' />
-            </div>
-            <div className="open-search">
-              <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
-            </div>
+          <div className="search-books-results">
+            <ol className="books-grid"></ol>
           </div>
-        )}
-      </div>
-    )
-  }
+        </div>
+      ) : (
+        <div className="list-books">
+          <div className="list-books-title">
+            <h1>MyReads</h1>
+          </div>
+          <div className="list-books-content">
+            {[shelfs.currentlyReading, shelfs.wantToRead, shelfs.read].map((shelf)=>(
+              <BookShelf 
+                key={shelf}
+                books={books.filter((book)=>(book.shelf===shelf))}
+                titleShelf={labelShelfs[shelf]}
+                onChangeShelf={modifyBook} />
+            ))}
+          </div>
+          <div className="open-search">
+            <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
+          </div>
+        </div>
+      )}
+    </div>
+  )
 }
 
 export default BooksApp
