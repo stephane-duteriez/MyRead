@@ -6,11 +6,11 @@ function BooksList(props) {
   return (
     <ol className="books-grid">
       {props.books.map((book)=>(
-        <li key={book.title}>
+        <li key={book.id}>
           <Book 
-            author={book.autor}
+            author={book.authors.join(', ')}
             title={book.title}
-            image={book.image}
+            image={book.imageLinks.smallThumbnail}
             shelf={book.shelf}
             onChangeShelf={(shelf) => {
               console.log({...book, shelf :shelf});
@@ -23,7 +23,7 @@ function BooksList(props) {
   )
 };
 
-BooksList.prototype = {
+BooksList.protypes = {
     books : PropTypes.array.isRequired,
     onChangeShelf : PropTypes.func.isRequired
 }

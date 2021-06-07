@@ -6,7 +6,7 @@ function Book(props) {
   return (
     <div className="book">
       <div className="book-top">
-        <div className="book-cover" style={{ width: props.image.width, height: props.image.height, backgroundImage: props.image.url}}></div>
+        <div className="book-cover" style={{ width: 130, height: 190, backgroundImage: `url("${props.image}")`}}></div>
         <BookShelfChanger active={props.shelf} onChangeShelf={props.onChangeShelf}/>
       </div>
       <div className="book-title">{props.tile}</div>
@@ -18,8 +18,8 @@ function Book(props) {
 Book.propTypes = {
   title : PropTypes.string.isRequired,
   author : PropTypes.string.isRequired,
-  shelf : PropTypes.number,
-  image : PropTypes.object.isRequired,
+  shelf : PropTypes.string,
+  image : PropTypes.string.isRequired,
   onChangeShelf : PropTypes.func.isRequired
 };
 

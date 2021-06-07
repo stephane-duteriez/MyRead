@@ -1,8 +1,8 @@
 export const shelfs =  Object.freeze({
-    'currentlyReading' : 1,
-    'wantToRead' : 2,
-    'read' : 3,
-    'none' : 4
+    'currentlyReading' : 'currentlyReading',
+    'wantToRead' : 'wantToRead',
+    'read' : 'read',
+    'none' : 'none'
   });
 
 export const labelShelfs = {

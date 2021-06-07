@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import {shelfs} from './Constantes';
 
 function BookShelfChanger(props) {
-    console.log(props.active);
     return (
         <div className="book-shelf-changer">
             <select value={props.active || shelfs.none} onChange={(evt)=>{
@@ -23,7 +22,7 @@ BookShelfChanger.defaultProp = {
 }
 
 BookShelfChanger.propTypes = {
-    active : PropTypes.number,
+    active : PropTypes.string,
     onChangeShelf : PropTypes.func.isRequired
 }
 

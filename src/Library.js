@@ -26,7 +26,7 @@ function Library(porps) {
   )
 };
 
-Library.PropTypes = {
+Library.propTypes = {
   books : PropTypes.array.isRequired,
   modifyBook : PropTypes.func.isRequired
 };
