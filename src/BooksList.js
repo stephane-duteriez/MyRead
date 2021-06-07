@@ -13,8 +13,7 @@ function BooksList(props) {
             image={book.imageLinks.smallThumbnail}
             shelf={book.shelf}
             onChangeShelf={(shelf) => {
-              console.log({...book, shelf :shelf});
-              props.onChangeShelf({...book, shelf :parseInt(shelf, 10)});
+              props.onChangeShelf(book, shelf);
             }}
             /> 
         </li>

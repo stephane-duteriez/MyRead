@@ -18,8 +18,11 @@ function BooksApp() {
     })
   }, [getAllBook]);
 
-  function modifyBook(newBook) {
-    setBooks([...books.filter((book)=>(book.id !== newBook.id)), newBook]);
+  function modifyBook(bookToUpdate, shelf) {
+    BooksAPI.update(bookToUpdate, shelf).then(()=>{
+      setBooks([...books.filter((book)=>(book.id !== bookToUpdate.id)), {...bookToUpdate, shelf: shelf}]);
+    });
+    
   };
 
   return (
