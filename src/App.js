@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
-import { BrowserRouter as Router, Link, Route} from 'react-router-dom';
+import { BrowserRouter as Router, Route} from 'react-router-dom';
+import {v4 as uuidv4} from 'uuid';
 
 // import * as BooksAPI from './BooksAPI'
 import './App.css';
 import Library from './Library';
 import {shelfs} from './Constantes';
-import {v4 as uuidv4} from 'uuid';
+import SearchBook from './SearchBook';
 
 const initBooks = [
   {
@@ -99,25 +100,7 @@ function BooksApp() {
     <Router>
     <div className="app">
       <Route path="/search">
-        <div className="search-books">
-          <div className="search-books-bar">
-            <Link to="/" className="close-search">Close</Link>
-            <div className="search-books-input-wrapper">
-              {/*
-                NOTES: The search from BooksAPI is limited to a particular set of search terms.
-                You can find these search terms here:
-                https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-
-                However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-                you don't find a specific author or title. Every search is limited by search terms.
-              */}
-              <input type="text" placeholder="Search by title or author"/>
-            </div>
-          </div>
-          <div className="search-books-results">
-            <ol className="books-grid"></ol>
-          </div>
-        </div>
+        <SearchBook />
       </Route>
       <Route exact path="/">
         <Library books={books} modifyBook={modifyBook} />
