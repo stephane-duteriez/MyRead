@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {shelfs} from './Constantes';
+import {shelfs, labelShelfs} from './Constantes';
 
 function BookShelfChanger(props) {
     return (
@@ -8,10 +8,11 @@ function BookShelfChanger(props) {
             <select value={props.active || shelfs.none} onChange={(evt)=>{
                 props.onChangeShelf(evt.target.value)}}>
                 <option value="move" disabled>Move to...</option>
-                <option value={shelfs.currentlyReading}>Currently Reading</option>
-                <option value={shelfs.wantToRead}>Want to Read</option>
-                <option value={shelfs.read}>Read</option>
-                <option value={shelfs.none}>None</option>
+                {Object.keys(shelfs).map((shelf)=>(
+                    <option 
+                        key={shelf}
+                        value={shelf} >{props.active === shelf?'\u2713':'\u00a0\u00a0\u00a0'} {labelShelfs[shelf]}</option>
+                ))}
             </select>
         </div>
     )
