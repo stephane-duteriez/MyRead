@@ -51,7 +51,7 @@ function SearchBook (props) {
       </div>
     </div>
   );
-};
+}
 
 SearchBook.propTypes = {
   onChangeShelf: PropTypes.func.isRequired,

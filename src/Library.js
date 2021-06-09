@@ -24,7 +24,7 @@ function Library (porps) {
       </div>
     </div>
   );
-};
+}
 
 Library.propTypes = {
   books: PropTypes.array.isRequired,

@@ -18,7 +18,7 @@ function BookShelfChanger (props) {
             </select>
         </div>
   );
-};
+}
 
 BookShelfChanger.defaultProp = {
   shelf: shelfs.none

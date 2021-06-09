@@ -20,7 +20,7 @@ function BooksList (props) {
       ))}
     </ol>
   );
-};
+}
 
 BooksList.propTypes = {
   books: PropTypes.array.isRequired,

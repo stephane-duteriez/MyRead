@@ -20,7 +20,7 @@ function BooksApp () {
     BooksAPI.update(bookToUpdate, shelf).then(() => {
       setBooks([...books.filter((book) => (book.id !== bookToUpdate.id)), { ...bookToUpdate, shelf: shelf }]);
     });
-  };
+  }
 
   return (
     <Router>
