@@ -9,6 +9,8 @@ function SearchBook (props) {
   const [foundBooks, setFoundBook] = useState([]);
   const [error, setError] = useState('');
 
+  let lastSearch = '';
+
   // construct dictionary for easy match
   const alreadyKnowBooks = {};
   props.currentBooks.forEach(book => {
@@ -17,9 +19,13 @@ function SearchBook (props) {
 
   function handleChange (evt) {
     setInputSearch(evt.target.value);
-
+    lastSearch = evt.target.value;
     if (evt.target.value) {
       BooksAPI.search(evt.target.value, 5).then((respons) => {
+        // if we received a response after we already change the input, wait for next query.
+        if (lastSearch !== evt.target.value) {
+          return;
+        }
         if (respons.error) {
           setFoundBook([]);
           setError(respons.error);
@@ -30,6 +36,7 @@ function SearchBook (props) {
       });
     } else {
       setFoundBook([]);
+      setError('');
     }
   }
 
@@ -39,9 +46,7 @@ function SearchBook (props) {
         <Link to="/" className="close-search">Close</Link>
         <div className="search-books-input-wrapper">
           <input type="text" placeholder="Search by title or author" value={inputSearch} onChange={handleChange}/>
-        </div>
-        <div>
-          {error}
+          {error && (<div>Error : {error}</div>)}
         </div>
       </div>
       <div className="search-books-results">
