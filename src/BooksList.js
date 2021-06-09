@@ -10,7 +10,7 @@ function BooksList (props) {
           <Book
             authors={book.authors && book.authors.join(', ')}
             title={book.title}
-            image={book.imageLinks.smallThumbnail}
+            image={book.imageLinks && book.imageLinks.smallThumbnail}
             shelf={book.shelf}
             onChangeShelf={(shelf) => {
               props.onChangeShelf(book, shelf);
