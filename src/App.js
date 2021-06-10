@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import * as BooksAPI from './BooksAPI';
 import './App.css';
 import Library from './Library';
 import SearchBook from './SearchBook';
+import PageNotFound from './PageNotFound';
 
 function BooksApp () {
   const [books, setBooks] = useState([]);
@@ -25,12 +26,15 @@ function BooksApp () {
   return (
     <Router>
     <div className="app">
-      <Route path="/search">
-        <SearchBook currentBooks={books} onChangeShelf={modifyBook}/>
-      </Route>
-      <Route exact path="/">
-        <Library books={books} modifyBook={modifyBook} />
-      </Route>
+      <Switch>
+        <Route exact path="/search">
+          <SearchBook currentBooks={books} onChangeShelf={modifyBook}/>
+        </Route>
+        <Route exact path="/">
+          <Library books={books} modifyBook={modifyBook} />
+        </Route>
+        <Route component={PageNotFound} />
+      </Switch>
     </div>
     </Router>
 
