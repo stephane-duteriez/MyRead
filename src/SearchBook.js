@@ -4,7 +4,7 @@ import BooksList from './BooksList';
 import * as BooksAPI from './BooksAPI';
 import PropTypes from 'prop-types';
 
-function SearchBook (props) {
+function SearchBook ({onChangeShelf, currentBooks}) {
   const [inputSearch, setInputSearch] = useState('');
   const [foundBooks, setFoundBook] = useState([]);
   const [error, setError] = useState('');
@@ -13,7 +13,7 @@ function SearchBook (props) {
 
   // construct dictionary for easy match
   const alreadyKnowBooks = {};
-  props.currentBooks.forEach(book => {
+  currentBooks.forEach(book => {
     alreadyKnowBooks[book.id] = book;
   });
 
@@ -52,7 +52,7 @@ function SearchBook (props) {
       <div className="search-books-results">
           <BooksList
             books={foundBooks.map((book) => alreadyKnowBooks[book.id] || book)}
-            onChangeShelf={props.onChangeShelf} />
+            onChangeShelf={onChangeShelf} />
       </div>
     </div>
   );

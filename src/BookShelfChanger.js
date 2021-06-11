@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { shelfs, labelShelfs } from './Constantes';
 
-function BookShelfChanger (props) {
+function BookShelfChanger ({active, shelf, onChangeShelf}) {
   return (
         <div className="book-shelf-changer">
             <select
              onChange={(evt) => {
-               props.onChangeShelf(evt.target.value);
+               onChangeShelf(evt.target.value);
              }}
-                value={props.active || shelfs.none}>
+                value={active || shelfs.none}>
                 <option value="move" disabled>Move to...</option>
                 {Object.keys(shelfs).map((shelf) => (
                     <option key={shelf}
@@ -21,7 +21,7 @@ function BookShelfChanger (props) {
 }
 
 BookShelfChanger.defaultProp = {
-  shelf: shelfs.none
+  active: shelfs.none
 };
 
 BookShelfChanger.propTypes = {

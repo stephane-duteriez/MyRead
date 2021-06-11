@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Book from './Book.js';
 
-function BooksList (props) {
+function BooksList ({books, onChangeShelf}) {
   return (
     <ol className="books-grid">
-      {props.books.map((book) => (
+      {books.map((book) => (
         <li key={book.id}>
           <Book
             authors={book.authors && book.authors.join(', ')}
@@ -13,7 +13,7 @@ function BooksList (props) {
             image={book.imageLinks && book.imageLinks.smallThumbnail}
             shelf={book.shelf}
             onChangeShelf={(shelf) => {
-              props.onChangeShelf(book, shelf);
+              onChangeShelf(book, shelf);
             }}
             />
         </li>
